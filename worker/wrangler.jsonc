@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mento-ai-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "FIREBASE_PROJECT_ID": "mento-app-d737c",
+    "FIREBASE_PROJECT_NUMBER": "658609057035",
+    "FIREBASE_APP_IDS": "1:658609057035:android:4375a44b115b4838c3c60e,1:658609057035:ios:3c7227db8baedc9ac3c60e",
+    "ALLOWED_ORIGINS": "",
+    "DAILY_USER_QUOTA": "50",
+    "MAX_REQUEST_BYTES": "65536",
+    "PROVIDER_TIMEOUT_MS": "8000",
+    "GEMINI_MODEL": "gemini-3.5-flash-lite",
+    "GEMINI_FALLBACK_MODELS": "gemini-3.6-flash",
+    "OPENROUTER_MODEL": "openrouter/free",
+    "APP_CHECK_ENFORCED": "false"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "USER_DAILY_QUOTA",
+        "class_name": "UserDailyQuota"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["UserDailyQuota"]
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true
+    }
+  }
+}

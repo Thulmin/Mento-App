@@ -1,0 +1,22 @@
+{
+  "name": "mento-firestore-rules-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "firebase emulators:exec --config ../firebase.rules-test.json --project demo-mento-rules --only firestore,storage \"vitest run\"",
+    "test:rules": "vitest run"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.1",
+    "@types/node": "^24.0.0",
+    "firebase": "^12.16.0",
+    "firebase-tools": "^15.23.0",
+    "typescript": "^6.0.0",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

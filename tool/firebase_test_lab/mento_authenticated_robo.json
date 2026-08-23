@@ -1,0 +1,561 @@
+"roboscript": {
+  "executionMode": {
+    "strict": true,
+    "dismiss_popups": true,
+    "notify": false
+  },
+  "postscript": {
+    "terminate": true
+  }
+}
+[
+  {
+    "id": 1000,
+    "description": "Authenticated Mento regression journey",
+    "priority": 50,
+    "contextDescriptor": {
+      "condition": "app_under_test_shown"
+    },
+    "actions": [
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 20000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_auth_email.*"
+          }
+        ],
+        "description": "Wait for Flutter and Firebase bootstrap to expose the stable email field identifier"
+      },
+      {
+        "eventType": "VIEW_TEXT_CHANGED",
+        "replacementText": "thulminjayawardena@gmail.com",
+        "elementDescriptors": [
+          {
+            "className": "android.widget.EditText",
+            "resourceIdRegex": ".*mento_auth_email.*"
+          }
+        ],
+        "description": "Enter the supplied email test credential"
+      },
+      {
+        "eventType": "VIEW_TEXT_CHANGED",
+        "replacementText": "ABcd@12345#",
+        "elementDescriptors": [
+          {
+            "className": "android.widget.EditText",
+            "resourceIdRegex": ".*mento_auth_password.*"
+          }
+        ],
+        "description": "Enter the supplied password test credential"
+      },
+      {
+        "eventType": "DISABLE_KEYBOARD",
+        "description": "Prevent the IME from covering the sign-in action"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_auth_submit.*"
+          }
+        ],
+        "description": "Use normal email and password sign-in"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 30000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_today.*"
+          }
+        ],
+        "description": "Wait for authenticated routing and synced dashboard data"
+      },
+      {
+        "eventType": "ASSERTION",
+        "contextDescriptor": {
+          "condition": "element_present",
+          "elementDescriptors": [
+            {
+              "resourceIdRegex": ".*mento_screen_today.*"
+            }
+          ]
+        },
+        "description": "Verify email/password authentication reached Today"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "01_authenticated_today",
+        "description": "Capture the authenticated Today screen"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_open_ai_assistant.*"
+          }
+        ],
+        "description": "Open the authenticated Mento assistant"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 15000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_ai_assistant.*"
+          }
+        ]
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 3000,
+        "description": "Allow conversation history to finish loading"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_new_conversation.*"
+          }
+        ],
+        "description": "Start a clean conversation so response verification is unambiguous"
+      },
+      {
+        "eventType": "VIEW_TEXT_CHANGED",
+        "replacementText": "What study modules have I added? Reply with a short summary.",
+        "elementDescriptors": [
+          {
+            "className": "android.widget.EditText",
+            "resourceIdRegex": ".*mento_ai_prompt.*"
+          }
+        ],
+        "description": "Enter a read-only account-context prompt"
+      },
+      {
+        "eventType": "DISABLE_KEYBOARD"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_send.*"
+          }
+        ],
+        "description": "Send the assistant prompt"
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 40000,
+        "description": "Wait beyond the app's 35-second AI receive timeout so retry conditions can be evaluated"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "optional": true,
+        "delayTime": 15000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_assistant_message.*"
+          }
+        ],
+        "description": "Record an assistant response when the free provider succeeds after conditional retries; provider exhaustion must not fail the app matrix"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "02_authenticated_ai_assistant",
+        "description": "Capture the assistant response or final provider retry state"
+      },
+      {
+        "eventType": "PRESSED_BACK",
+        "description": "Return to Today from the assistant"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 10000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_today.*"
+          }
+        ]
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "contentDescriptionRegex": "Plan(\\s+Tab 2 of 5)?"
+          }
+        ],
+        "description": "Open Plan from primary navigation"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 20000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_plan.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ASSERTION",
+        "contextDescriptor": {
+          "condition": "element_present",
+          "elementDescriptors": [
+            {
+              "resourceIdRegex": ".*mento_screen_plan.*"
+            }
+          ]
+        },
+        "description": "Verify Plan rendered without OCR"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "03_authenticated_plan"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "contentDescriptionRegex": "Focus(\\s+Tab 3 of 5)?"
+          }
+        ],
+        "description": "Open Focus from primary navigation"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 20000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_focus.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ASSERTION",
+        "contextDescriptor": {
+          "condition": "element_present",
+          "elementDescriptors": [
+            {
+              "resourceIdRegex": ".*mento_screen_focus.*"
+            }
+          ]
+        },
+        "description": "Verify Focus rendered without OCR"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "04_authenticated_focus"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "contentDescriptionRegex": "Progress(\\s+Tab 4 of 5)?"
+          }
+        ],
+        "description": "Open Progress from primary navigation"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 20000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_progress.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ASSERTION",
+        "contextDescriptor": {
+          "condition": "element_present",
+          "elementDescriptors": [
+            {
+              "resourceIdRegex": ".*mento_screen_progress.*"
+            }
+          ]
+        },
+        "description": "Verify Progress rendered without OCR"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "05_authenticated_progress"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "contentDescriptionRegex": "Profile(\\s+Tab 5 of 5)?"
+          }
+        ],
+        "description": "Open Profile without interacting with account actions"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "delayTime": 20000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_profile.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ASSERTION",
+        "contextDescriptor": {
+          "condition": "element_present",
+          "elementDescriptors": [
+            {
+              "resourceIdRegex": ".*mento_screen_profile.*"
+            }
+          ]
+        },
+        "description": "Verify Profile rendered without OCR"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "06_authenticated_profile"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "contentDescriptionRegex": "Today(\\s+Tab 1 of 5)?"
+          }
+        ],
+        "description": "Return to Today for the optional AI planner check"
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 3000
+      },
+      {
+        "eventType": "ONE_POINT_GESTURE",
+        "coordinates": "(50%,85%)->(50%,25%)",
+        "description": "Scroll toward the study-plan card"
+      },
+      {
+        "eventType": "ONE_POINT_GESTURE",
+        "coordinates": "(50%,85%)->(50%,25%)"
+      },
+      {
+        "eventType": "ONE_POINT_GESTURE",
+        "coordinates": "(50%,85%)->(50%,25%)"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "optional": true,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_open_ai_planner.*"
+          }
+        ],
+        "description": "Open the AI planner when the account has active work and no accepted block today"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "optional": true,
+        "delayTime": 15000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_screen_ai_planner.*"
+          }
+        ]
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "optional": true,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_generate_plan.*"
+          }
+        ],
+        "description": "Generate a proposed plan without accepting or writing any plan blocks"
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 40000,
+        "description": "Wait beyond the app's 35-second AI receive timeout so retry conditions can be evaluated"
+      },
+      {
+        "eventType": "WAIT_FOR_ELEMENT",
+        "optional": true,
+        "delayTime": 15000,
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_plan_result.*"
+          }
+        ],
+        "description": "Wait for a validated plan result after any conditional retries"
+      },
+      {
+        "eventType": "TAKE_SCREENSHOT",
+        "screenshotName": "07_authenticated_ai_planner_or_today",
+        "description": "Capture the planner result, or Today when planner prerequisites are absent"
+      },
+      {
+        "eventType": "TERMINATE_CRAWL",
+        "description": "Stop before Robo can sign out, reset a password, use Google auth, or mutate account data"
+      }
+    ]
+  },
+  {
+    "id": 1001,
+    "description": "Retry the AI assistant after a provider error",
+    "priority": 100,
+    "maxNumberOfRuns": 3,
+    "contextDescriptor": {
+      "condition": "element_present",
+      "elementDescriptors": [
+        {
+          "resourceIdRegex": ".*mento_ai_error.*"
+        }
+      ]
+    },
+    "actions": [
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_dismiss_error.*"
+          }
+        ]
+      },
+      {
+        "eventType": "VIEW_TEXT_CHANGED",
+        "replacementText": "What study modules have I added? Reply with a short summary.",
+        "elementDescriptors": [
+          {
+            "className": "android.widget.EditText",
+            "resourceIdRegex": ".*mento_ai_prompt.*"
+          }
+        ]
+      },
+      {
+        "eventType": "DISABLE_KEYBOARD"
+      },
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_send.*"
+          }
+        ]
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 40000,
+        "description": "Wait before evaluating whether another retry is needed"
+      }
+    ]
+  },
+  {
+    "id": 1002,
+    "description": "Retry AI plan generation after a provider error",
+    "priority": 100,
+    "maxNumberOfRuns": 3,
+    "contextDescriptor": {
+      "condition": "element_present",
+      "elementDescriptors": [
+        {
+          "resourceIdRegex": ".*mento_ai_planner_error.*"
+        }
+      ]
+    },
+    "actions": [
+      {
+        "eventType": "VIEW_CLICKED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_ai_generate_plan.*"
+          }
+        ],
+        "description": "Try plan generation again without accepting the result"
+      },
+      {
+        "eventType": "WAIT",
+        "delayTime": 40000
+      }
+    ]
+  },
+  {
+    "id": 1003,
+    "description": "Globally exclude auth and destructive account actions",
+    "priority": 200,
+    "contextDescriptor": {
+      "condition": "app_under_test_shown"
+    },
+    "actions": [
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_auth_google.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_auth_forgot_password.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "resourceIdRegex": ".*mento_auth_safe_demo.*"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Sign up"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Continue with Apple"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Send reset link"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Link Google sign-in"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Sign out"
+          }
+        ]
+      },
+      {
+        "eventType": "ELEMENT_IGNORED",
+        "elementDescriptors": [
+          {
+            "contentDescription": "Delete account"
+          }
+        ]
+      }
+    ]
+  }
+]

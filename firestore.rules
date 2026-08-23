@@ -1,0 +1,861 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isUser(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function optionalString(data, field, maximum) {
+      return !(field in data)
+        || data[field] == null
+        || (data[field] is string && data[field].size() <= maximum);
+    }
+
+    function optionalBool(data, field) {
+      return !(field in data)
+        || data[field] == null
+        || data[field] is bool;
+    }
+
+    function optionalInt(data, field) {
+      return !(field in data)
+        || data[field] == null
+        || data[field] is int;
+    }
+
+    function optionalNumber(data, field) {
+      return !(field in data)
+        || data[field] == null
+        || data[field] is number;
+    }
+
+    function optionalTimestamp(data, field) {
+      return !(field in data)
+        || data[field] == null
+        || data[field] is timestamp;
+    }
+
+    function optionalList(data, field, maximum) {
+      return !(field in data)
+        || data[field] == null
+        || (data[field] is list && data[field].size() <= maximum);
+    }
+
+    function optionalMap(data, field) {
+      return !(field in data)
+        || data[field] == null
+        || data[field] is map;
+    }
+
+    function shortString(value, maximum) {
+      return value is string
+        && value.size() > 0
+        && value.size() <= maximum;
+    }
+
+    function validOptionalDocumentId(data, documentId) {
+      return !('id' in data)
+        || (data.id is string && data.id == documentId);
+    }
+
+    function validAuditCreate(data) {
+      return data.updatedAt is timestamp
+        && data.updatedAt == request.time
+        && (
+          !('createdAt' in data)
+          || (data.createdAt is timestamp && data.createdAt == request.time)
+        );
+    }
+
+    function validAuditUpdate(data) {
+      return data.updatedAt is timestamp
+        && data.updatedAt == request.time
+        && (
+          (
+            !('createdAt' in resource.data)
+            && !('createdAt' in data)
+          )
+          || (
+            'createdAt' in resource.data
+            && 'createdAt' in data
+            && data.createdAt == resource.data.createdAt
+          )
+        );
+    }
+
+    function validPrivateCreate(data, uid, documentId) {
+      return data.ownerId is string
+        && data.ownerId == uid
+        && validOptionalDocumentId(data, documentId)
+        && validAuditCreate(data);
+    }
+
+    function validPrivateUpdate(data, uid, documentId) {
+      return resource.data.ownerId == uid
+        && data.ownerId == uid
+        && data.ownerId == resource.data.ownerId
+        && validOptionalDocumentId(data, documentId)
+        && validAuditUpdate(data);
+    }
+
+    function canDeletePrivate(uid) {
+      return isUser(uid) && resource.data.ownerId == uid;
+    }
+
+    function validProfile(profile) {
+      return profile is map
+        && profile.keys().hasOnly([
+          'preferredName',
+          'email',
+          'photoUrl',
+          'photoSource',
+          'customPhotoPath',
+          'institution',
+          'course',
+          'programme',
+          'academicYear',
+          'semester',
+          'bio'
+        ])
+        && optionalString(profile, 'preferredName', 100)
+        && optionalString(profile, 'email', 320)
+        && optionalString(profile, 'photoUrl', 2048)
+        && (
+          !('photoSource' in profile)
+          || profile.photoSource == null
+          || profile.photoSource == 'google'
+          || profile.photoSource == 'custom'
+        )
+        && optionalString(profile, 'customPhotoPath', 256)
+        && optionalString(profile, 'institution', 200)
+        && optionalString(profile, 'course', 200)
+        && optionalString(profile, 'programme', 200)
+        && optionalString(profile, 'bio', 500)
+        && (
+          !('academicYear' in profile)
+          || (
+            profile.academicYear is int
+            && profile.academicYear >= 1
+            && profile.academicYear <= 20
+          )
+        )
+        && (
+          !('semester' in profile)
+          || profile.semester is int
+          || (
+            profile.semester is string
+            && profile.semester.size() <= 40
+          )
+        );
+    }
+
+    function validPreferences(preferences) {
+      return preferences is map
+        && preferences.keys().hasOnly([
+          'themeMode',
+          'theme',
+          'wellnessEnabled',
+          'wellnessTrackingEnabled',
+          'publicAchievements',
+          'reducedMotion',
+          'availableStudyHours',
+          'studySessionMinutes',
+          'preferredSessionMinutes',
+          'breakMinutes',
+          'preferredBreakMinutes',
+          'maxDailyStudyMinutes',
+          'typicalStudyWeekdays',
+          'productivity',
+          'goal',
+          'notificationsEnabled',
+          'remindersEnabled',
+          'locationEnabled',
+          'quietStartHour',
+          'quietEndHour',
+          'aiEnabled',
+          'timeZone'
+        ])
+        && optionalBool(preferences, 'wellnessEnabled')
+        && optionalBool(preferences, 'wellnessTrackingEnabled')
+        && optionalBool(preferences, 'publicAchievements')
+        && optionalBool(preferences, 'reducedMotion')
+        && optionalBool(preferences, 'notificationsEnabled')
+        && optionalBool(preferences, 'remindersEnabled')
+        && optionalBool(preferences, 'locationEnabled')
+        && optionalBool(preferences, 'aiEnabled')
+        && optionalNumber(preferences, 'availableStudyHours')
+        && optionalInt(preferences, 'studySessionMinutes')
+        && optionalInt(preferences, 'preferredSessionMinutes')
+        && optionalInt(preferences, 'breakMinutes')
+        && optionalInt(preferences, 'preferredBreakMinutes')
+        && optionalInt(preferences, 'maxDailyStudyMinutes')
+        && optionalInt(preferences, 'quietStartHour')
+        && optionalInt(preferences, 'quietEndHour')
+        && optionalList(preferences, 'typicalStudyWeekdays', 7)
+        && optionalList(preferences, 'productivity', 20)
+        && optionalString(preferences, 'goal', 1000)
+        && optionalString(preferences, 'timeZone', 100)
+        && (
+          !('themeMode' in preferences)
+          || preferences.themeMode in ['system', 'light', 'dark']
+        )
+        && (
+          !('theme' in preferences)
+          || preferences.theme in ['system', 'light', 'dark']
+        );
+    }
+
+    function validUserDocument(data, uid) {
+      return data.keys().hasOnly([
+          'uid',
+          'profile',
+          'preferences',
+          'onboardingComplete',
+          'termsAccepted',
+          'role',
+          'createdAt',
+          'updatedAt'
+        ])
+        && data.uid is string
+        && data.uid == uid
+        && validProfile(data.profile)
+        && validPreferences(data.preferences)
+        && data.onboardingComplete is bool
+        && data.termsAccepted is bool
+        && data.role is string
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validUserDocument(request.resource.data, uid)
+        && request.resource.data.role == 'student'
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if isUser(uid)
+        && validUserDocument(request.resource.data, uid)
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.role == resource.data.role
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if isUser(uid);
+    }
+
+    function validModule(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'name', 'code', 'lecturer', 'colorHex',
+          'colorValue', 'iconName', 'semester', 'notes', 'priorityWeight',
+          'createdAt', 'updatedAt'
+        ])
+        && shortString(data.name, 200)
+        && data.code is string
+        && data.code.size() <= 40
+        && (
+          data.semester is int
+          || (data.semester is string && data.semester.size() <= 80)
+        )
+        && optionalString(data, 'lecturer', 200)
+        && optionalString(data, 'colorHex', 16)
+        && optionalInt(data, 'colorValue')
+        && optionalString(data, 'iconName', 80)
+        && optionalString(data, 'notes', 5000)
+        && optionalNumber(data, 'priorityWeight')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/modules/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validModule(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validModule(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validTopic(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'moduleId', 'name', 'description', 'mastery',
+          'completedStudyMinutes', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.moduleId, 128)
+        && shortString(data.name, 200)
+        && optionalString(data, 'description', 2000)
+        && data.mastery is number
+        && data.mastery >= 0
+        && data.mastery <= 1
+        && data.completedStudyMinutes is int
+        && data.completedStudyMinutes >= 0
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/topics/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validTopic(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validTopic(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validTimetableEvent(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'title', 'moduleId', 'type', 'startAt', 'endAt',
+          'location', 'savedLocationId', 'latitude', 'longitude',
+          'reminderMinutesBefore', 'recurrence', 'recurrenceUntil',
+          'recurringWeekdays', 'notes', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.title, 200)
+        && data.type in [
+          'lecture', 'tutorial', 'laboratory', 'seminar',
+          'personalStudy', 'other'
+        ]
+        && data.startAt is timestamp
+        && data.endAt is timestamp
+        && data.endAt > data.startAt
+        && data.recurrence in [
+          'none', 'daily', 'weekly', 'fortnightly', 'monthly'
+        ]
+        && optionalString(data, 'moduleId', 128)
+        && optionalString(data, 'location', 500)
+        && optionalString(data, 'savedLocationId', 128)
+        && optionalNumber(data, 'latitude')
+        && optionalNumber(data, 'longitude')
+        && optionalInt(data, 'reminderMinutesBefore')
+        && optionalTimestamp(data, 'recurrenceUntil')
+        && optionalList(data, 'recurringWeekdays', 7)
+        && optionalString(data, 'notes', 5000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/timetableEvents/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validTimetableEvent(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validTimetableEvent(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validAssignment(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'moduleId', 'title', 'description', 'dueAt',
+          'priority', 'estimatedMinutes', 'status', 'subtasks',
+          'manualProgress', 'reminderAt', 'attachments', 'createdAt',
+          'updatedAt'
+        ])
+        && shortString(data.moduleId, 128)
+        && shortString(data.title, 200)
+        && data.dueAt is timestamp
+        && data.priority in ['low', 'medium', 'high', 'urgent']
+        && data.estimatedMinutes is int
+        && data.estimatedMinutes >= 0
+        && data.estimatedMinutes <= 60000
+        && data.status in [
+          'notStarted', 'inProgress', 'completed', 'missed', 'cancelled'
+        ]
+        && data.subtasks is list
+        && data.subtasks.size() <= 100
+        && data.manualProgress is number
+        && data.manualProgress >= 0
+        && data.manualProgress <= 1
+        && data.attachments is list
+        && data.attachments.size() <= 20
+        && optionalString(data, 'description', 10000)
+        && optionalTimestamp(data, 'reminderAt')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/assignments/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validAssignment(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validAssignment(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validExamination(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'moduleId', 'title', 'startAt', 'endAt', 'venue',
+          'syllabusTopicIds', 'importance', 'preparationProgress',
+          'reminderAt', 'notes', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.moduleId, 128)
+        && shortString(data.title, 200)
+        && data.startAt is timestamp
+        && data.endAt is timestamp
+        && data.endAt > data.startAt
+        && data.syllabusTopicIds is list
+        && data.syllabusTopicIds.size() <= 100
+        && data.importance in ['low', 'medium', 'high', 'urgent']
+        && data.preparationProgress is number
+        && data.preparationProgress >= 0
+        && data.preparationProgress <= 1
+        && optionalString(data, 'venue', 500)
+        && optionalTimestamp(data, 'reminderAt')
+        && optionalString(data, 'notes', 5000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/examinations/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validExamination(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validExamination(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validStudyTask(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'title', 'moduleId', 'topicId', 'dueAt',
+          'estimatedMinutes', 'priority', 'status', 'plannedStartAt',
+          'isAiGenerated', 'needsRescheduling', 'completedAt', 'notes',
+          'createdAt', 'updatedAt'
+        ])
+        && shortString(data.title, 200)
+        && data.dueAt is timestamp
+        && data.estimatedMinutes is int
+        && data.estimatedMinutes >= 0
+        && data.estimatedMinutes <= 4000
+        && data.priority in ['low', 'medium', 'high', 'urgent']
+        && data.status in [
+          'notStarted', 'inProgress', 'completed', 'missed', 'cancelled'
+        ]
+        && data.isAiGenerated is bool
+        && data.needsRescheduling is bool
+        && optionalString(data, 'moduleId', 128)
+        && optionalString(data, 'topicId', 128)
+        && optionalTimestamp(data, 'plannedStartAt')
+        && optionalTimestamp(data, 'completedAt')
+        && optionalString(data, 'notes', 5000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/studyTasks/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validStudyTask(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validStudyTask(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validStudyPlan(data, uid) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'userId', 'generatedAt', 'rangeStart',
+          'rangeEnd', 'source', 'blocks', 'maxDailyMinutes', 'isAccepted',
+          'rationale', 'unplannedMinutes', 'schemaVersion', 'createdAt',
+          'updatedAt'
+        ])
+        && data.userId == uid
+        && data.generatedAt is timestamp
+        && data.rangeStart is timestamp
+        && data.rangeEnd is timestamp
+        && data.rangeEnd > data.rangeStart
+        && data.source in ['deterministic', 'artificialIntelligence', 'user']
+        && data.blocks is list
+        && data.blocks.size() <= 100
+        && data.maxDailyMinutes is int
+        && data.maxDailyMinutes >= 30
+        && data.maxDailyMinutes <= 720
+        && data.isAccepted is bool
+        && optionalString(data, 'rationale', 5000)
+        && data.unplannedMinutes is map
+        && data.schemaVersion is int
+        && data.schemaVersion >= 1
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/studyPlans/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validStudyPlan(request.resource.data, uid);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validStudyPlan(request.resource.data, uid)
+        && request.resource.data.userId == resource.data.userId;
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validStudySession(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'title', 'moduleId', 'topicId', 'startedAt',
+          'endedAt', 'durationMinutes', 'status', 'notes', 'createdAt',
+          'updatedAt'
+        ])
+        && shortString(data.title, 200)
+        && data.startedAt is timestamp
+        && optionalTimestamp(data, 'endedAt')
+        && data.durationMinutes is int
+        && data.durationMinutes >= 0
+        && data.durationMinutes <= 1440
+        && data.status in ['planned', 'running', 'completed', 'cancelled']
+        && optionalString(data, 'moduleId', 128)
+        && optionalString(data, 'topicId', 128)
+        && optionalString(data, 'notes', 5000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/studySessions/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validStudySession(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validStudySession(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validFocusSession(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'moduleId', 'topicId', 'goal', 'targetMinutes',
+          'startedAt', 'state', 'lastResumedAt', 'pausedAt', 'endedAt',
+          'accumulatedActiveSeconds', 'accumulatedPausedSeconds', 'isBreak',
+          'interruptionCount', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.goal, 500)
+        && data.targetMinutes is int
+        && data.targetMinutes >= 1
+        && data.targetMinutes <= 1440
+        && data.startedAt is timestamp
+        && data.state in ['running', 'paused', 'completed', 'cancelled']
+        && data.accumulatedActiveSeconds is int
+        && data.accumulatedActiveSeconds >= 0
+        && data.accumulatedPausedSeconds is int
+        && data.accumulatedPausedSeconds >= 0
+        && data.isBreak is bool
+        && data.interruptionCount is int
+        && data.interruptionCount >= 0
+        && optionalString(data, 'moduleId', 128)
+        && optionalString(data, 'topicId', 128)
+        && optionalTimestamp(data, 'lastResumedAt')
+        && optionalTimestamp(data, 'pausedAt')
+        && optionalTimestamp(data, 'endedAt')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/focusSessions/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validFocusSession(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validFocusSession(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validHabit(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'name', 'category', 'frequency', 'weekdays',
+          'weeklyTarget', 'reminderTimes', 'isArchived', 'notes',
+          'createdAt', 'updatedAt'
+        ])
+        && shortString(data.name, 200)
+        && data.category in [
+          'hydration', 'movement', 'sleep', 'breaks', 'reading',
+          'mindfulness', 'custom'
+        ]
+        && data.frequency in [
+          'daily', 'weekdays', 'weekends', 'selectedDays', 'timesPerWeek'
+        ]
+        && data.weekdays is list
+        && data.weekdays.size() <= 7
+        && data.weeklyTarget is int
+        && data.weeklyTarget >= 1
+        && data.weeklyTarget <= 7
+        && data.reminderTimes is list
+        && data.reminderTimes.size() <= 10
+        && data.isArchived is bool
+        && optionalString(data, 'notes', 2000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/habits/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validHabit(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validHabit(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validHabitLog(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'habitId', 'date', 'loggedAt', 'isCompleted',
+          'value', 'note', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.habitId, 128)
+        && data.date is timestamp
+        && data.loggedAt is timestamp
+        && data.isCompleted is bool
+        && optionalNumber(data, 'value')
+        && optionalString(data, 'note', 2000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/habitLogs/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validHabitLog(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validHabitLog(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validWellnessCheckIn(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'recordedAt', 'mood', 'energy', 'sleepHours',
+          'note', 'createdAt', 'updatedAt'
+        ])
+        && data.recordedAt is timestamp
+        && data.mood is int
+        && data.mood >= 1
+        && data.mood <= 5
+        && data.energy is int
+        && data.energy >= 1
+        && data.energy <= 5
+        && optionalNumber(data, 'sleepHours')
+        && optionalString(data, 'note', 2000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/wellnessCheckIns/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validWellnessCheckIn(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validWellnessCheckIn(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validAchievement(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'type', 'title', 'description', 'threshold',
+          'pointsReward', 'iconName', 'progress', 'unlockedAt', 'createdAt',
+          'updatedAt'
+        ])
+        && shortString(data.type, 80)
+        && shortString(data.title, 200)
+        && shortString(data.description, 1000)
+        && data.threshold is int
+        && data.threshold >= 0
+        && data.pointsReward is int
+        && data.pointsReward >= 0
+        && shortString(data.iconName, 100)
+        && data.progress is number
+        && data.progress >= 0
+        && data.progress <= 1
+        && optionalTimestamp(data, 'unlockedAt')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/achievements/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validAchievement(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validAchievement(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validNotificationPreferences(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'enabled', 'quietStartHour', 'quietEndHour',
+          'defaultLeadMinutes', 'categories', 'createdAt', 'updatedAt'
+        ])
+        && data.enabled is bool
+        && optionalInt(data, 'quietStartHour')
+        && optionalInt(data, 'quietEndHour')
+        && optionalInt(data, 'defaultLeadMinutes')
+        && optionalMap(data, 'categories')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/notificationPreferences/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validNotificationPreferences(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validNotificationPreferences(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validAiConversation(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'title', 'messages', 'summary', 'provider',
+          'executedActionIds', 'archived', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.title, 200)
+        && data.messages is list
+        && data.messages.size() <= 50
+        && data.executedActionIds is list
+        && data.executedActionIds.size() <= 100
+        && optionalString(data, 'summary', 5000)
+        && optionalString(data, 'provider', 100)
+        && optionalBool(data, 'archived')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/aiConversations/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validAiConversation(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validAiConversation(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validTopicMastery(data, documentId) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'topicId', 'moduleId', 'mastery',
+          'studyMinutes', 'completedTasks', 'quizAverage', 'createdAt',
+          'updatedAt'
+        ])
+        && data.topicId == documentId
+        && shortString(data.moduleId, 128)
+        && data.mastery is number
+        && data.mastery >= 0
+        && data.mastery <= 1
+        && data.studyMinutes is int
+        && data.studyMinutes >= 0
+        && data.completedTasks is int
+        && data.completedTasks >= 0
+        && optionalNumber(data, 'quizAverage')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/topicMastery/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validTopicMastery(request.resource.data, documentId);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validTopicMastery(request.resource.data, documentId)
+        && request.resource.data.topicId == resource.data.topicId;
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validSavedLocation(data) {
+      return data.keys().hasOnly([
+          'id', 'ownerId', 'name', 'address', 'latitude', 'longitude',
+          'type', 'isFavorite', 'notes', 'createdAt', 'updatedAt'
+        ])
+        && shortString(data.name, 200)
+        && data.latitude is number
+        && data.latitude >= -90
+        && data.latitude <= 90
+        && data.longitude is number
+        && data.longitude >= -180
+        && data.longitude <= 180
+        && data.type in [
+          'campus', 'library', 'studySpace', 'cafe', 'home', 'other'
+        ]
+        && data.isFavorite is bool
+        && optionalString(data, 'address', 1000)
+        && optionalString(data, 'notes', 5000)
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{uid}/savedLocations/{documentId} {
+      allow read: if isUser(uid);
+      allow create: if isUser(uid)
+        && validPrivateCreate(request.resource.data, uid, documentId)
+        && validSavedLocation(request.resource.data);
+      allow update: if isUser(uid)
+        && validPrivateUpdate(request.resource.data, uid, documentId)
+        && validSavedLocation(request.resource.data);
+      allow delete: if canDeletePrivate(uid);
+    }
+
+    function validPublicProfile(data, uid) {
+      return data.keys().hasOnly([
+          'uid', 'preferredName', 'photoUrl', 'institution', 'programme',
+          'course', 'academicYear', 'bio', 'achievementCount', 'points',
+          'isDiscoverable', 'createdAt', 'updatedAt'
+        ])
+        && data.uid == uid
+        && shortString(data.preferredName, 100)
+        && data.isDiscoverable is bool
+        && optionalString(data, 'photoUrl', 2048)
+        && optionalString(data, 'institution', 200)
+        && optionalString(data, 'programme', 200)
+        && optionalString(data, 'course', 200)
+        && optionalString(data, 'bio', 500)
+        && optionalInt(data, 'academicYear')
+        && optionalInt(data, 'achievementCount')
+        && optionalInt(data, 'points')
+        && optionalTimestamp(data, 'createdAt')
+        && data.updatedAt is timestamp;
+    }
+
+    match /publicProfiles/{uid} {
+      allow read: if resource.data.isDiscoverable == true
+        || (isUser(uid) && resource.data.uid == uid);
+      allow create: if isUser(uid)
+        && validPublicProfile(request.resource.data, uid)
+        && validAuditCreate(request.resource.data);
+      allow update: if isUser(uid)
+        && validPublicProfile(request.resource.data, uid)
+        && request.resource.data.uid == resource.data.uid
+        && validAuditUpdate(request.resource.data);
+      allow delete: if isUser(uid) && resource.data.uid == uid;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
