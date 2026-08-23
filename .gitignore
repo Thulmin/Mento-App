@@ -44,6 +44,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Build artifacts – never commit
+*.apk
+*.aab
+build_locked_*/
+
 # Local credentials and platform configuration. These files are required only
 # on configured developer machines and must never be committed.
 Gemini API Key.txt
