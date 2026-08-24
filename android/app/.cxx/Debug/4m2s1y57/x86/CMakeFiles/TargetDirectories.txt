@@ -1,0 +1,2 @@
+C:/Users/ugtdj/OneDrive/Desktop/Mento App/Project File/android/app/.cxx/Debug/4m2s1y57/x86/CMakeFiles/edit_cache.dir
+C:/Users/ugtdj/OneDrive/Desktop/Mento App/Project File/android/app/.cxx/Debug/4m2s1y57/x86/CMakeFiles/rebuild_cache.dir

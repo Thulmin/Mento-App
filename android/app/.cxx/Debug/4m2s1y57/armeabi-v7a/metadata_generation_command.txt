@@ -1,0 +1,20 @@
+                        -HC:\Flutter\packages\flutter_tools\gradle\src\main\groovy
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=23
+-DANDROID_PLATFORM=android-23
+-DANDROID_ABI=armeabi-v7a
+-DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
+-DANDROID_NDK=C:\Users\ugtdj\AppData\Local\Android\sdk\ndk\27.0.12077973
+-DCMAKE_ANDROID_NDK=C:\Users\ugtdj\AppData\Local\Android\sdk\ndk\27.0.12077973
+-DCMAKE_TOOLCHAIN_FILE=C:\Users\ugtdj\AppData\Local\Android\sdk\ndk\27.0.12077973\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=C:\Users\ugtdj\AppData\Local\Android\Sdk\cmake\3.22.1\bin\ninja.exe
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\Users\ugtdj\.codex\visualizations\2026\08\09\019fe817-3033-7611-9be7-b478e63db9e2\android-build\app\intermediates\cxx\Debug\4m2s1y57\obj\armeabi-v7a
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\Users\ugtdj\.codex\visualizations\2026\08\09\019fe817-3033-7611-9be7-b478e63db9e2\android-build\app\intermediates\cxx\Debug\4m2s1y57\obj\armeabi-v7a
+-DCMAKE_BUILD_TYPE=Debug
+-BC:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\android\app\.cxx\Debug\4m2s1y57\armeabi-v7a
+-GNinja
+-Wno-dev
+--no-warn-unused-cli
+                        Build command args: []
+                        Version: 2

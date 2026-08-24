@@ -1,0 +1,77 @@
+thulmin.icbt.mento.app-preference-1.2.1-0 C:\Users\ugtdj\.gradle\caches\8.13\transforms\00cf403f4ee2618b068b89eeaf35b539\transformed\preference-1.2.1\res
+thulmin.icbt.mento.app-core-1.18.0-1 C:\Users\ugtdj\.gradle\caches\8.13\transforms\0d1c9fa75d3a000997854f696a5a2eec\transformed\core-1.18.0\res
+thulmin.icbt.mento.app-jetified-savedstate-1.2.1-2 C:\Users\ugtdj\.gradle\caches\8.13\transforms\0f431711439f89979acaf8347cbd4fac\transformed\jetified-savedstate-1.2.1\res
+thulmin.icbt.mento.app-coordinatorlayout-1.0.0-3 C:\Users\ugtdj\.gradle\caches\8.13\transforms\11246622c14c5dfc6560183d0162cac7\transformed\coordinatorlayout-1.0.0\res
+thulmin.icbt.mento.app-jetified-profileinstaller-1.4.0-4 C:\Users\ugtdj\.gradle\caches\8.13\transforms\1e1f35710d536db05c35fdbec48c6ac4\transformed\jetified-profileinstaller-1.4.0\res
+thulmin.icbt.mento.app-jetified-lifecycle-viewmodel-ktx-2.7.0-5 C:\Users\ugtdj\.gradle\caches\8.13\transforms\1f93c9cbba4f28f5eb12290a1d82c215\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\res
+thulmin.icbt.mento.app-jetified-firebase-common-22.1.0-6 C:\Users\ugtdj\.gradle\caches\8.13\transforms\214cad1f0a9d8543f3053426b9ec7809\transformed\jetified-firebase-common-22.1.0\res
+thulmin.icbt.mento.app-jetified-window-java-1.2.0-7 C:\Users\ugtdj\.gradle\caches\8.13\transforms\25bede12af4e2a8ac207d7d813d082d9\transformed\jetified-window-java-1.2.0\res
+thulmin.icbt.mento.app-biometric-1.1.0-8 C:\Users\ugtdj\.gradle\caches\8.13\transforms\267a34a8a47bebe042aff56407a9e69e\transformed\biometric-1.1.0\res
+thulmin.icbt.mento.app-jetified-datastore-core-release-9 C:\Users\ugtdj\.gradle\caches\8.13\transforms\313c0bbaf882cc99d0bd5f9fca52cbfd\transformed\jetified-datastore-core-release\res
+thulmin.icbt.mento.app-jetified-fragment-ktx-1.7.1-10 C:\Users\ugtdj\.gradle\caches\8.13\transforms\334a3cf5269f3678376795b27a6c0c71\transformed\jetified-fragment-ktx-1.7.1\res
+thulmin.icbt.mento.app-fragment-1.7.1-11 C:\Users\ugtdj\.gradle\caches\8.13\transforms\46a375979ed3c24d3ff6e34dba5659dc\transformed\fragment-1.7.1\res
+thulmin.icbt.mento.app-jetified-datastore-release-12 C:\Users\ugtdj\.gradle\caches\8.13\transforms\473b7f9355e7e931a68f4ad4f68b53b3\transformed\jetified-datastore-release\res
+thulmin.icbt.mento.app-jetified-datastore-preferences-core-release-13 C:\Users\ugtdj\.gradle\caches\8.13\transforms\4b94c999916befe3e25371de9017759c\transformed\jetified-datastore-preferences-core-release\res
+thulmin.icbt.mento.app-jetified-lifecycle-runtime-ktx-2.7.0-14 C:\Users\ugtdj\.gradle\caches\8.13\transforms\4d118024b96a0d3539a1c0ffda405f9a\transformed\jetified-lifecycle-runtime-ktx-2.7.0\res
+thulmin.icbt.mento.app-jetified-lifecycle-livedata-core-ktx-2.7.0-15 C:\Users\ugtdj\.gradle\caches\8.13\transforms\5a1153703d2dbaf4e4d776866f281846\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\res
+thulmin.icbt.mento.app-slidingpanelayout-1.2.0-16 C:\Users\ugtdj\.gradle\caches\8.13\transforms\5b817ece6d81628a2578b209d993632a\transformed\slidingpanelayout-1.2.0\res
+thulmin.icbt.mento.app-appcompat-1.2.0-17 C:\Users\ugtdj\.gradle\caches\8.13\transforms\5d5a58c85ebb8d59348ed10d30052664\transformed\appcompat-1.2.0\res
+thulmin.icbt.mento.app-jetified-appcompat-resources-1.2.0-18 C:\Users\ugtdj\.gradle\caches\8.13\transforms\5da8390bd10d08c1297d0c277c017da3\transformed\jetified-appcompat-resources-1.2.0\res
+thulmin.icbt.mento.app-jetified-play-services-maps-19.2.0-19 C:\Users\ugtdj\.gradle\caches\8.13\transforms\5ecd6e90c22c3ed62706e99b23880d72\transformed\jetified-play-services-maps-19.2.0\res
+thulmin.icbt.mento.app-jetified-play-services-base-18.9.0-20 C:\Users\ugtdj\.gradle\caches\8.13\transforms\639f25cfaa848182e426cf0383b9119c\transformed\jetified-play-services-base-18.9.0\res
+thulmin.icbt.mento.app-lifecycle-livedata-core-2.7.0-21 C:\Users\ugtdj\.gradle\caches\8.13\transforms\676dfe0fdaa78892d1d1d417275e0643\transformed\lifecycle-livedata-core-2.7.0\res
+thulmin.icbt.mento.app-jetified-savedstate-ktx-1.2.1-22 C:\Users\ugtdj\.gradle\caches\8.13\transforms\67aa50b01136405d0006423af09c516a\transformed\jetified-savedstate-ktx-1.2.1\res
+thulmin.icbt.mento.app-localbroadcastmanager-1.1.0-23 C:\Users\ugtdj\.gradle\caches\8.13\transforms\68e8f1c24713db4928d71eb083a93231\transformed\localbroadcastmanager-1.1.0\res
+thulmin.icbt.mento.app-jetified-lifecycle-viewmodel-savedstate-2.7.0-24 C:\Users\ugtdj\.gradle\caches\8.13\transforms\6a6d6a3e7aa7bb80afca09b4f2d153ab\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\res
+thulmin.icbt.mento.app-jetified-annotation-experimental-1.4.1-25 C:\Users\ugtdj\.gradle\caches\8.13\transforms\6f483c63eebc18e36fad6fcee178b450\transformed\jetified-annotation-experimental-1.4.1\res
+thulmin.icbt.mento.app-jetified-android-maps-utils-3.6.0-26 C:\Users\ugtdj\.gradle\caches\8.13\transforms\715a422dc5797a6ab57eb28c87014bb5\transformed\jetified-android-maps-utils-3.6.0\res
+thulmin.icbt.mento.app-jetified-activity-ktx-1.10.1-27 C:\Users\ugtdj\.gradle\caches\8.13\transforms\74c3d3450b09afcd897011fc54fbbf04\transformed\jetified-activity-ktx-1.10.1\res
+thulmin.icbt.mento.app-jetified-window-1.2.0-28 C:\Users\ugtdj\.gradle\caches\8.13\transforms\7d7a930167606820df5675d4f864ca54\transformed\jetified-window-1.2.0\res
+thulmin.icbt.mento.app-jetified-credentials-play-services-auth-1.5.0-29 C:\Users\ugtdj\.gradle\caches\8.13\transforms\8680dd06a3b7e9fb18f624e9acfc5192\transformed\jetified-credentials-play-services-auth-1.5.0\res
+thulmin.icbt.mento.app-recyclerview-1.0.0-30 C:\Users\ugtdj\.gradle\caches\8.13\transforms\8bce611d2d7892415c31eef7c31513ab\transformed\recyclerview-1.0.0\res
+thulmin.icbt.mento.app-jetified-play-services-basement-18.9.0-31 C:\Users\ugtdj\.gradle\caches\8.13\transforms\8f5e9eadafc33f6e1cb66bf02f778b35\transformed\jetified-play-services-basement-18.9.0\res
+thulmin.icbt.mento.app-jetified-play-services-auth-21.4.0-32 C:\Users\ugtdj\.gradle\caches\8.13\transforms\97804f10f821307677a7ee948f986527\transformed\jetified-play-services-auth-21.4.0\res
+thulmin.icbt.mento.app-jetified-credentials-1.5.0-33 C:\Users\ugtdj\.gradle\caches\8.13\transforms\9bd4e195357413bfd248a0df524c9e8b\transformed\jetified-credentials-1.5.0\res
+thulmin.icbt.mento.app-browser-1.8.0-34 C:\Users\ugtdj\.gradle\caches\8.13\transforms\adffc7b75470dd399478ebcbc2556511\transformed\browser-1.8.0\res
+thulmin.icbt.mento.app-jetified-core-ktx-1.18.0-35 C:\Users\ugtdj\.gradle\caches\8.13\transforms\b130bacc0c4e91b78b6f4b43af6fdf62\transformed\jetified-core-ktx-1.18.0\res
+thulmin.icbt.mento.app-jetified-firebase-messaging-25.1.0-36 C:\Users\ugtdj\.gradle\caches\8.13\transforms\b31499fcd442dc708a892c995a6d1912\transformed\jetified-firebase-messaging-25.1.0\res
+thulmin.icbt.mento.app-jetified-datastore-preferences-release-37 C:\Users\ugtdj\.gradle\caches\8.13\transforms\b6d2d55027d72b76ef6ab14d0f5830dc\transformed\jetified-datastore-preferences-release\res
+thulmin.icbt.mento.app-jetified-tracing-1.2.0-38 C:\Users\ugtdj\.gradle\caches\8.13\transforms\b84562063a39f649552c7341fe8c4c52\transformed\jetified-tracing-1.2.0\res
+thulmin.icbt.mento.app-jetified-lifecycle-process-2.7.0-39 C:\Users\ugtdj\.gradle\caches\8.13\transforms\be983ff552a42e3f5dc93800b70184e8\transformed\jetified-lifecycle-process-2.7.0\res
+thulmin.icbt.mento.app-jetified-core-common-2.0.4-40 C:\Users\ugtdj\.gradle\caches\8.13\transforms\c37690909df06e199d416c1ef8844351\transformed\jetified-core-common-2.0.4\res
+thulmin.icbt.mento.app-jetified-core-1.0.0-41 C:\Users\ugtdj\.gradle\caches\8.13\transforms\c91f376f6ca78b4543ed4039004c9525\transformed\jetified-core-1.0.0\res
+thulmin.icbt.mento.app-core-runtime-2.2.0-42 C:\Users\ugtdj\.gradle\caches\8.13\transforms\cf075b8871b0ff083b1c70e0a49fac58\transformed\core-runtime-2.2.0\res
+thulmin.icbt.mento.app-jetified-core-viewtree-1.0.0-43 C:\Users\ugtdj\.gradle\caches\8.13\transforms\d1be50d91969fb5336c742d888469fdf\transformed\jetified-core-viewtree-1.0.0\res
+thulmin.icbt.mento.app-media-1.1.0-44 C:\Users\ugtdj\.gradle\caches\8.13\transforms\d7fea6cb2ad0cd0249c35324699a3acc\transformed\media-1.1.0\res
+thulmin.icbt.mento.app-jetified-startup-runtime-1.1.1-45 C:\Users\ugtdj\.gradle\caches\8.13\transforms\dcce1be32d9f9a787b12d28b03493c91\transformed\jetified-startup-runtime-1.1.1\res
+thulmin.icbt.mento.app-transition-1.4.1-46 C:\Users\ugtdj\.gradle\caches\8.13\transforms\e2e86c1e9674356265519fda9a6c0838\transformed\transition-1.4.1\res
+thulmin.icbt.mento.app-lifecycle-viewmodel-2.7.0-47 C:\Users\ugtdj\.gradle\caches\8.13\transforms\ec24bdfe3df5093141f86f73e5ab74f3\transformed\lifecycle-viewmodel-2.7.0\res
+thulmin.icbt.mento.app-jetified-activity-1.10.1-48 C:\Users\ugtdj\.gradle\caches\8.13\transforms\ec738f11bffcf98dd01c412d570e83f6\transformed\jetified-activity-1.10.1\res
+thulmin.icbt.mento.app-lifecycle-runtime-2.7.0-49 C:\Users\ugtdj\.gradle\caches\8.13\transforms\f510b1d8fe1f7ba4e43961d61b508c86\transformed\lifecycle-runtime-2.7.0\res
+thulmin.icbt.mento.app-debug-50 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\android\app\src\debug\res
+thulmin.icbt.mento.app-main-51 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\android\app\src\main\res
+thulmin.icbt.mento.app-pngs-52 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\generated\res\pngs\debug
+thulmin.icbt.mento.app-res-53 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\generated\res\processDebugGoogleServices
+thulmin.icbt.mento.app-resValues-54 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\generated\res\resValues\debug
+thulmin.icbt.mento.app-packageDebugResources-55 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\intermediates\incremental\debug\packageDebugResources\merged.dir
+thulmin.icbt.mento.app-packageDebugResources-56 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\intermediates\incremental\debug\packageDebugResources\stripped.dir
+thulmin.icbt.mento.app-debug-57 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\app\intermediates\merged_res\debug\mergeDebugResources
+thulmin.icbt.mento.app-debug-58 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\cloud_firestore\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-59 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\connectivity_plus\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-60 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\firebase_app_check\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-61 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\firebase_auth\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-62 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\firebase_core\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-63 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\firebase_messaging\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-64 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\firebase_storage\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-65 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\flutter_local_notifications\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-66 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\flutter_native_splash\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-67 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-68 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\flutter_timezone\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-69 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\geolocator_android\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-70 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\google_maps_flutter_android\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-71 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\google_sign_in_android\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-72 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\image_picker_android\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-73 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\integration_test\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-74 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\package_info_plus\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-75 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\shared_preferences_android\intermediates\packaged_res\debug\packageDebugResources
+thulmin.icbt.mento.app-debug-76 C:\Users\ugtdj\OneDrive\Desktop\Mento App\Project File\build\url_launcher_android\intermediates\packaged_res\debug\packageDebugResources

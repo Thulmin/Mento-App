@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "658609057035",
+    "firebase_url": "https://mento-app-d737c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mento-app-d737c",
+    "storage_bucket": "mento-app-d737c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658609057035:android:4375a44b115b4838c3c60e",
+        "android_client_info": {
+          "package_name": "thulmin.icbt.mento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658609057035-send4hjut7g6fpb267qj3vm6rlam8b9e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "thulmin.icbt.mento",
+            "certificate_hash": "18c1376f435df97cd3f0c7e9f0612e3f92736851"
+          }
+        },
+        {
+          "client_id": "658609057035-kbdab0ahv0as71biov7469r6928kpb3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl4cZaLVC8dnCljzNRr3JZtv_oIlX6_nk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658609057035-kbdab0ahv0as71biov7469r6928kpb3f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "658609057035-mr48l4drmj0nde4sjc3dqr104c4uv6eu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "thulmin.icbt.mento"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

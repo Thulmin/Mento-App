@@ -1,0 +1,2 @@
+C:/Users/ugtdj/OneDrive/Desktop/Mento App/Project File/android/app/.cxx/RelWithDebInfo/1eg322yi/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/ugtdj/OneDrive/Desktop/Mento App/Project File/android/app/.cxx/RelWithDebInfo/1eg322yi/armeabi-v7a/CMakeFiles/rebuild_cache.dir
