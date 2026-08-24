@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">658609057035-kbdab0ahv0as71biov7469r6928kpb3f.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">658609057035</string>
+    <string name="google_api_key" translatable="false">AIzaSyAl4cZaLVC8dnCljzNRr3JZtv_oIlX6_nk</string>
+    <string name="google_app_id" translatable="false">1:658609057035:android:4375a44b115b4838c3c60e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAl4cZaLVC8dnCljzNRr3JZtv_oIlX6_nk</string>
+    <string name="google_storage_bucket" translatable="false">mento-app-d737c.firebasestorage.app</string>
+    <string name="project_id" translatable="false">mento-app-d737c</string>
+</resources>
